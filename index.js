@@ -70,13 +70,11 @@ app.get('/events',  async (req, res) => {
     res.send(result)
 })
 
-
-
-app.delete('/my-events/:id',verifytoken, async (req, res) => {
-    const { id } = req.params
-    const result = await joinEvent.deleteOne({ _id: new ObjectId(id) })
-    res.send(result)
+app.get('/', (req, res) => {
+    res.send({ message: 'server is running' })
 })
+
+
 
 app.post('/join', async (req, res) => {
     const data = req.body
