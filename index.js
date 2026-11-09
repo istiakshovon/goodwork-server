@@ -9,30 +9,7 @@ const PORT = 5000
 app.use(cors())
 app.use(express.json())
 
-const verifytoken = async(req, res, next) => {
-    const authHeader = req.headers.authorization
-    if (!authHeader) {
-        return res.status(401).send({ message: "unauthorized" })
-    }
-    const token = authHeader.split(' ')[1]
-    if (!token) {
-        return res.status(401).send({ message: "unauthorized" })
-    }
 
-    const JWKS = createRemoteJWKSet(new URL(`${process.env.CLIENT_URL}/api/auth/jwks`))
-
-try {
-    const {payload} = await jwtVerify(token,JWKS)
-        next()
-}catch (error) {
-        console.error("JWT ERROR:", error.name, error.message);
-        return res.status(401).send({ message: "server error" });
-    }
-
-
-
-
-}
 
 const client = new MongoClient(process.env.MONGODB_URL);
 
