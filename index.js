@@ -65,11 +65,12 @@ app.get('/events/:id',  async (req, res) => {
     res.send(result)
 })
 
-
-
-app.get('/', (req, res) => {
-    res.send({ message: 'server is running' })
+app.get('/events',  async (req, res) => {
+    const result = await eventCollection.find().toArray()
+    res.send(result)
 })
+
+
 
 app.delete('/my-events/:id',verifytoken, async (req, res) => {
     const { id } = req.params
