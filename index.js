@@ -52,12 +52,14 @@ const eventCollection = db.collection('destination')
 
 const joinEvent = db.collection('JoinEvent')
 
-
-app.get('/events/:id',  async (req, res) => {
-    const { id } = req.params
-    const result = await eventCollection.findOne({ _id: new ObjectId(id) })
+app.post('/add-destination',verifytoken, async (req, res) => {
+    const data = req.body
+    const result = await eventCollection.insertOne(data)
+    console.log(result)
     res.send(result)
 })
+
+
 
 app.get('/events',  async (req, res) => {
     const result = await eventCollection.find().toArray()
