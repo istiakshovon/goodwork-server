@@ -59,12 +59,13 @@ app.post('/add-destination',verifytoken, async (req, res) => {
     res.send(result)
 })
 
-
-
-app.get('/events',  async (req, res) => {
-    const result = await eventCollection.find().toArray()
+app.get('/events/:id',  async (req, res) => {
+    const { id } = req.params
+    const result = await eventCollection.findOne({ _id: new ObjectId(id) })
     res.send(result)
 })
+
+
 
 app.get('/', (req, res) => {
     res.send({ message: 'server is running' })
